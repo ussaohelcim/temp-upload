@@ -65,6 +65,15 @@ const upload = multer({
 				cb(null,false)
 				return cb(new Error("There is not enough space in our server to save your file."))
 			}
+			else{
+				const limitSize = Number(serverConfig.fileSizeLimit)
+
+				if(fileSize > limitSize){
+					cb(null,false)
+					return cb(new Error(`The filesize limit its: ${(limitSize/(1024*1024))} MB, and your file its: ${(fileSize/(1024*1024))} MB`))
+				}
+			}
+
 			console.log(req.ip,"uploaded",file.originalname,file.mimetype)
 
 			cb(null,true)
@@ -73,9 +82,6 @@ const upload = multer({
 			cb(null,false)
 			return cb(new Error("Only .zip supported"))
 		}
-	},
-	limits: {
-		fileSize: Number(serverConfig.fileSizeLimit) 
 	}
 }).single(fileFieldName)
 
