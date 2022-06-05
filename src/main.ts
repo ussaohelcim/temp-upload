@@ -177,9 +177,20 @@ app.get('/:secret/:pass', async (req,res)=>{
 
 		}
 		else{
-			res.send(`Wrong password or file doesn't exist`)
+			const err:IErrorPage = {
+				errorMessage: `Wrong password or file doesn't exist`
+			}
+			res.render('error',err)
 		}
 	})
+})
+
+app.get('/*',async (req,res)=>{
+	const err:IErrorPage = {
+		errorMessage: `Page not found.`
+	}
+	res.status(404)
+	res.render('error',err)
 })
 
 export const db = new FilesDatabase(path.normalize(`${__dirname}/../data.db`))
