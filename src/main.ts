@@ -147,7 +147,7 @@ app.get('/db',async (req,res)=>{
 			res.json(rows)
 		}
 		else{
-			res.send("vazio")
+			res.send("Empty.")
 		}
 	})
 })
