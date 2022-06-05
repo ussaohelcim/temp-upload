@@ -1,5 +1,6 @@
 export interface ILinkPage{
 	link:string
+	title:string
 }
 
 export interface IUploadPage{
@@ -14,5 +15,6 @@ export interface IUploadPage{
 }
 
 export interface IErrorPage{
+	title:string
 	errorMessage:string
 }

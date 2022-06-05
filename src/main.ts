@@ -35,7 +35,8 @@ const serverConfig = {
 	certPath: 			process.env.certPath || "",
 	privateKeyPath: 	process.env.privateKeyPath || "",
 	adminkey: 			process.env.adminkey || "",
-	logourl: 			process.env.logourl || ""
+	logourl: 			process.env.logourl || "",
+	title:				process.env.serverTitle || "Temp-upload"
 }
 
 const storage = multer.diskStorage({
@@ -92,7 +93,7 @@ app.get('/',async (req,res)=>{
 	const filesize = Number(serverConfig.fileSizeLimit)/(1024*1024)
 
 	const uploadPage: IUploadPage ={
-		title:"Temp-Upload",
+		title: serverConfig.title,
 		logoImage:serverConfig.logourl,
 		uploadUrl:"/upload",
 		fieldName: fileFieldName,
@@ -110,6 +111,7 @@ app.post('/upload',async (req,res)=>{
 	upload(req,res, async (err)=>{
 		if(err){
 			const error:IErrorPage= {
+				title: serverConfig.title,
 				errorMessage: err.message
 			}
 			res.render('error',error)
@@ -129,6 +131,7 @@ app.post('/upload',async (req,res)=>{
 						console.log(req.file?.filename,"added to db")
 
 						const conf:ILinkPage = {
+							title: serverConfig.title,
 							link:`${req.headers.origin}/${secret}/${req.body.password}`
 						}
 
@@ -141,6 +144,7 @@ app.post('/upload',async (req,res)=>{
 			}
 			else{
 				const error:IErrorPage= {
+					title:serverConfig.title,
 					errorMessage: "You need to set a password. File not uploaded."
 				}
 				res.render('error',error)
@@ -187,6 +191,7 @@ app.get('/:secret/:pass', async (req,res)=>{
 		}
 		else{
 			const err:IErrorPage = {
+				title:serverConfig.title,
 				errorMessage: `Wrong password or file doesn't exist`
 			}
 			res.render('error',err)
@@ -196,6 +201,7 @@ app.get('/:secret/:pass', async (req,res)=>{
 
 app.get('/*',async (req,res)=>{
 	const err:IErrorPage = {
+		title:serverConfig.title,
 		errorMessage: `Page not found.`
 	}
 	res.status(404)
