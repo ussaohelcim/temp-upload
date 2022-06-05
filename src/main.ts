@@ -216,12 +216,13 @@ db.tryToCreateTable().then((res)=>{
 
 if('1' === process.env.secure){
 	const config:https.ServerOptions = {
-		cert:  serverConfig.certPath,
-		key: serverConfig.privateKeyPath
+		cert: fs.readFileSync(path.normalize(`${__dirname}/../../${serverConfig.certPath}`) ) ,
+		key: fs.readFileSync(path.normalize(`${__dirname}/../../${serverConfig.privateKeyPath}`) ) 
 	}
 	const server = https.createServer(config,app)
 
 	server.listen(serverConfig.serverPort,serverConfig.hostname,()=>{
+		console.log("Temp-upload, with HTTPS, webserver running on:",server.address())
 	})
 }
 else{
