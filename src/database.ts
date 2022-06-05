@@ -111,13 +111,16 @@ export class FilesDatabase{
 		const sql = `SELECT * FROM ${dbConfig.tableName} WHERE ${dbConfig.secretenameColumn}='${secret}' AND ${dbConfig.passwordColumn}='${password}'`
 
 		return (await this.db).all(sql).then((rows)=>{
-			return {
-				filename:	rows[0].filename,
-				password:	rows[0].password,
-				filesize:	0,
-				secretname: rows[0].secretname,
-				originalname: rows[0].originalname
+			if(rows.length>0){
+				return {
+					filename:	rows[0].filename,
+					password:	rows[0].password,
+					filesize:	0,
+					secretname: rows[0].secretname,
+					originalname: rows[0].originalname
+				}
 			}
+			return null
 		},()=>null)
 	}
 
