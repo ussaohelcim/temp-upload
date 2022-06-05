@@ -140,7 +140,10 @@ app.post('/upload',async (req,res)=>{
 				})
 			}
 			else{
-				res.render('uploaderr',{error:"no password"})
+				const error:IErrorPage= {
+					errorMessage: "You need to set a password. File not uploaded."
+				}
+				res.render('error',error)
 			}
 		}
 	})
