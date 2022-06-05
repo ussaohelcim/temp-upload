@@ -27,8 +27,8 @@ const supportedMymeTypes = ["application/zip","application/x-zip-compressed","ap
 const charAmount = 8
 
 const serverConfig = {
-	hostname: 			process.env.hostname || "",
-	serverPort: 		process.env.serverPort || "",
+	hostname: 			process.env.hostname || "127.0.0.1",
+	serverPort: 		Number(process.env.serverPort) || 3000,
 	totalStorage: 		process.env.totalStorage || "",
 	fileSizeLimit:		process.env.fileSizeLimit || "",
 	secure: 			process.env.secure || "",
@@ -199,13 +199,13 @@ if('1' === process.env.secure){
 	}
 	const server = https.createServer(config,app)
 
-	server.listen(serverConfig.serverPort,0,()=>{
+	server.listen(serverConfig.serverPort,serverConfig.hostname,()=>{
 	})
 }
 else{
 	const server = http.createServer(app)
 
-	server.listen(80,process.env.hostname || "localhost",()=>{
+	server.listen(serverConfig.serverPort,serverConfig.hostname || "localhost",()=>{
 		console.log("Temp-upload webserver running on:",server.address())
 	})
 }
