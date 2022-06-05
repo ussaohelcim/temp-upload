@@ -1,5 +1,9 @@
 # temp-upload
-Upload files temporally. 
+
+Web server to upload files temporally and privately.  
+You can upload a .zip file and it will return a link. When you go to this link you will download the file, and the file will be removed from the server.  
+
+Example video: https://youtu.be/JLm1ck4XnWM
 
 # How to host by yourself
 
