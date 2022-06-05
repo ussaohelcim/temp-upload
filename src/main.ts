@@ -129,7 +129,7 @@ app.post('/upload',async (req,res)=>{
 						console.log(req.file?.filename,"added to db")
 
 						const conf:ILinkPage = {
-							link:`${serverConfig.hostname}:${serverConfig.serverPort}/${secret}/${req.body.password}`
+							link:`${req.headers.origin}/${secret}/${req.body.password}`
 						}
 
 						res.render('linkpage',conf)
