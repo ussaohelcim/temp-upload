@@ -99,9 +99,7 @@ app.get('/',async (req,res)=>{
 	res.render('upload',uploadPage)
 
 })
-// })
 
-// app.post('/upload',upload.single(fileFieldName),async (req,res)=>{
 app.post('/upload',async (req,res)=>{
 	upload(req,res, async (err)=>{
 		if(err){
@@ -125,7 +123,7 @@ app.post('/upload',async (req,res)=>{
 						console.log(req.file?.filename,"added to db")
 
 						const conf:ILinkPage = {
-							link:`localhost/${secret}/${req.body.password}`
+							link:`${serverConfig.hostname}/${secret}/${req.body.password}`
 						}
 
 						res.render('linkpage',conf)
@@ -140,8 +138,6 @@ app.post('/upload',async (req,res)=>{
 			}
 		}
 	})
-	
-	
 })
 
 app.get('/db',async (req,res)=>{
