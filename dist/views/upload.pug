@@ -1,0 +1,29 @@
+html 
+	head 
+		title= title
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		style 
+			include uploadstyle.css
+	body 
+		main.spaceBetween
+			img(src= logoImage, alt="")
+			h1= title
+			form(action= uploadUrl, enctype="multipart/form-data", method="post") 
+				input(type="file", accept="application/zip,application/x-zip-compressed,application/zip-compressed" name= fieldName)
+				input(type="text", placeholder="Password" name="password") 
+				input(type="submit", value="Upload")
+			section 
+				p Upload files temporaly. When you upload something, you will get a link
+				p Example: url/secret/password
+				p When you go to this link, you file will be downloaded and automagically removed from our servers
+				p You can only upload .zip files, with #{fileSize} MB max.
+			section 
+				h3 Server status:
+				p There is #{emptySpace} MB of free space on this server.
+				p There is #{fileAmountNOW} files on this server right now.
+				p #{fileAmountALL} files have already been saved on this server.
+			footer 
+				a(href="https://github.com/ussaohelcim/temp-upload")  https://github.com/ussaohelcim/temp-upload
+				p Made by ussaohelcim.
+				
+			
